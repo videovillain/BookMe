@@ -10,9 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    TextView titleTextView;
-    TextView categoryTextView;
-    TextView feelTextView;
+    TextView titleTextView1;
+    TextView categoryTextView1;
+    TextView feelTextView1;
+    TextView titleTextView2;
+    TextView categoryTextView2;
+    TextView feelTextView2;
+    TextView titleTextView3;
+    TextView categoryTextView3;
+    TextView feelTextView3;
+    TextView titleTextView4;
+    TextView categoryTextView4;
+    TextView feelTextView4;
     public static BooksDatabase database;
     private List<Book> books = new ArrayList<>();
 
@@ -21,9 +30,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        titleTextView = findViewById(R.id.title_text_view);
-        categoryTextView = findViewById(R.id.category_text_view);
-        feelTextView = findViewById(R.id.feel_text_view);
+        titleTextView1 = findViewById(R.id.title_text_view1);
+        categoryTextView1 = findViewById(R.id.category_text_view1);
+        feelTextView1 = findViewById(R.id.feel_text_view1);
+        titleTextView2 = findViewById(R.id.title_text_view2);
+        categoryTextView2 = findViewById(R.id.category_text_view2);
+        feelTextView2 = findViewById(R.id.feel_text_view2);
+        titleTextView3 = findViewById(R.id.title_text_view3);
+        categoryTextView3 = findViewById(R.id.category_text_view3);
+        feelTextView3 = findViewById(R.id.feel_text_view3);
+        titleTextView4 = findViewById(R.id.title_text_view4);
+        categoryTextView4 = findViewById(R.id.category_text_view4);
+        feelTextView4 = findViewById(R.id.feel_text_view4);
 
         // Have Room make the database!
         database = Room.databaseBuilder(getApplicationContext(), BooksDatabase.class, "books")
@@ -52,9 +70,24 @@ public class MainActivity extends AppCompatActivity {
                 "anxious","relationships, friendships, work, personal", 9.0);
 
         // checking to see if some of the SQL in the Dao work and database is working right
-        books = database.bookDao().getAllBooks();
-        titleTextView.setText(books.get(0).title);
-        categoryTextView.setText(books.get(0).category);
-        feelTextView.setText(books.get(0).feel);
+        books = database.bookDao().getBooksByFeel("pensive");
+        titleTextView1.setText(books.get(0).title);
+        categoryTextView1.setText(books.get(0).category);
+        feelTextView1.setText(books.get(0).feel);
+
+        books = database.bookDao().getBooksByCategory("life improvement");
+        titleTextView2.setText(books.get(0).title);
+        categoryTextView2.setText(books.get(0).category);
+        feelTextView2.setText(books.get(0).feel);
+
+        books = database.bookDao().getBooksByTitle("Meditations");
+        titleTextView3.setText(books.get(0).title);
+        categoryTextView3.setText(books.get(0).category);
+        feelTextView3.setText(books.get(0).feel);
+
+        books = database.bookDao().getBooksByYear(1946);
+        titleTextView4.setText(books.get(0).title);
+        categoryTextView4.setText(books.get(0).category);
+        feelTextView4.setText(books.get(0).feel);
     }
 }
